@@ -1,0 +1,24 @@
+{
+  "name": "tailwind-obfuscate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misbahansori/tailwind-obfuscate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/misbahansori/tailwind-obfuscate/issues"
+  },
+  "homepage": "https://github.com/misbahansori/tailwind-obfuscate#readme",
+  "dependencies": {
+    "randomstring": "^1.2.2",
+    "typescript": "^4.7.3"
+  }
+}
