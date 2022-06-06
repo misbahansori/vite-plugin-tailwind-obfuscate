@@ -1,12 +1,20 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^17.0.40
   crypto-random-string: ^5.0.0
 
 dependencies:
   crypto-random-string: 5.0.0
 
+devDependencies:
+  '@types/node': 17.0.40
+
 packages:
+
+  /@types/node/17.0.40:
+    resolution: {integrity: sha512-UXdBxNGqTMtm7hCwh9HtncFVLrXoqA3oJW30j6XWp5BH/wu3mVeaxo7cq5benFdBw34HB3XDT2TRPI7rXZ+mDg==}
+    dev: true
 
   /crypto-random-string/5.0.0:
     resolution: {integrity: sha512-KWjTXWwxFd6a94m5CdRGW/t82Tr8DoBc9dNnPCAbFI1EBweN6v1tv8y4Y1m7ndkp/nkIBRxUxAzpaBnR2k3bcQ==}
