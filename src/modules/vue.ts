@@ -1,13 +1,19 @@
 import randomString from "randomstring";
 import { escapeClassName } from "../utils";
+
 export default function vue(code: string, classMap: Map<string, string>) {
   const classNamesRegex =
-    /class[: =]*[\\"]*([a-z-0-9\\\[\]\/\(\)\.': ])*["\\]/g;
+    /(class|_normalizeClass)[\[\(: =]*[\\"]*([a-z-0-9\\\[\]\/\(\)\.': ])*["\\]/g;
   const rawClassesMap = new Map();
 
   const rawClasses = code
     .match(classNamesRegex)
-    .map((c) => c.replace(new RegExp(/\\|\"|class[: =\ ]*/, "g"), ""))
+    .map((c) =>
+      c.replace(
+        new RegExp(/(\\|\"|class|_normalizeClass)[\[\(: =\ ]*/, "g"),
+        ""
+      )
+    )
     .filter((c) => c.length > 1);
 
   const classes = rawClasses.map((c) => c.split(" "));

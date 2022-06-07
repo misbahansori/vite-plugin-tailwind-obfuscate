@@ -1,4 +1,5 @@
-import { escapeClassName } from "../utils";
+import { cssPseudoSelectorRegex } from "./../utils";
+import { escapeClassName, removeCssPsuedoSelector } from "../utils";
 
 export default function css(code: string, classMap: Map<string, string>) {
   const cssClassNameRegex = /\.([a-z-0-9\\\[\]\/\(\)\.':])*{/gi;
@@ -10,11 +11,21 @@ export default function css(code: string, classMap: Map<string, string>) {
   cssClassNames
     .sort((a, b) => b.length - a.length)
     .forEach((className) => {
-      const escapedClassName = escapeClassName(className);
-      if (classMap.has(className.replace(/\\/gi, ""))) {
+      const escapedClassName = removeCssPsuedoSelector(
+        escapeClassName(className)
+      );
+      const nomalClassName = className.replace(/\\/gi, "");
+
+      if (classMap.has(removeCssPsuedoSelector(nomalClassName))) {
+        console.log(
+          `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`
+        );
         code = code.replace(
-          new RegExp(`\.${escapedClassName}{`, "g"),
-          "." + classMap.get(className.replace(/\\/gi, "")) + "{"
+          new RegExp(
+            `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`,
+            "g"
+          ),
+          "." + classMap.get(removeCssPsuedoSelector(nomalClassName)) + "$1{"
         );
       }
     });
