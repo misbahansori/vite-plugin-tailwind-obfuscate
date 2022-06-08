@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "vue-dev": "cd example/vue && vite",
     "test": "vitest"
   },
   "repository": {
