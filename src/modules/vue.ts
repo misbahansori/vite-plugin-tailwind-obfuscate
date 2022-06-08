@@ -10,7 +10,7 @@ export default function vue(
     /class="([a-z-0-9\\\[\]\/\(\)\.': ]*)"/g,
 
     // Catch class names using tenary operator
-    /:class="[\s\S]*\?(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'(?: *)?[\s\S]*:(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'/g,
+    /:class="[^"]*\?(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'(?: *)?[^"]*:(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'[^"]*/g,
   ];
 
   const rawClasses: string[] = [];
@@ -27,14 +27,20 @@ export default function vue(
     }
   });
 
+  rawClasses.forEach((rawClass) => console.log(rawClass));
+
   const unqiueClasses = new Set(rawClasses.map((c) => c.split(" ")).flat());
 
   unqiueClasses.forEach((className) => {
     let random = randomClassName(config);
-    while (classMapping.has(random)) {
+
+    while ([...classMapping.values()].includes(random)) {
       random = randomClassName(config);
     }
-    classMapping.set(className, random);
+
+    if (!classMapping.has(className)) {
+      classMapping.set(className, random);
+    }
   });
 
   const rawClassesMap = new Map();
