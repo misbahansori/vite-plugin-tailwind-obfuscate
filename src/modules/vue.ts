@@ -2,10 +2,7 @@ import randomString from "randomstring";
 import type { TransformResult } from "rollup";
 import { escapeClassName } from "../utils";
 
-export default function vue(
-  code: string,
-  classMap: Map<string, string>
-): TransformResult {
+export default function vue(code: string, classMap: Map<string, string>) {
   const classNamesRegex =
     /(class|_normalizeClass)[\[\(: =]*[\\"]*([a-z-0-9\\\[\]\/\(\)\.': ])*["\\]/g;
   const rawClassesMap = new Map();
