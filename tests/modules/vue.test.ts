@@ -52,8 +52,6 @@ describe("test vue transformer", () => {
     const classMap = new Map();
     const result = vue(code, classMap);
 
-    console.log(result.code);
-
     expect(result.code).toMatch(
       /class: _normalizeClass\(\[\"\w{5} \w{5} \w{5} \w{5} \w{5}\", \{ \n '\w{5}'/
     );
