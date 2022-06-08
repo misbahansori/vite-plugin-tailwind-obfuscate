@@ -26,6 +26,9 @@ Install plugin with npm
 
 ```
 // https://vitejs.dev/config/
+
+import obfuscate from "vite-plugin-tailwind-obfuscate";
+
 export default defineConfig({
   plugins: [
     obfuscate()
