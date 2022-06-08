@@ -1,5 +1,4 @@
 import type { Plugin } from "vite";
-import type { TransformResult } from "rollup";
 import css from "./modules/css";
 import vue from "./modules/vue";
 
@@ -16,5 +15,5 @@ export default function obfuscate(config: {}): Plugin {
         return css(code, classMap);
       }
     },
-  };
+  } as Plugin;
 }
