@@ -1,7 +1,11 @@
 import { cssPseudoSelectorRegex } from "./../utils";
 import { escapeClassName, removeCssPsuedoSelector } from "../utils";
+import type { TransformResult } from "rollup";
 
-export default function css(code: string, classMap: Map<string, string>) {
+export default function css(
+  code: string,
+  classMap: Map<string, string>
+): TransformResult {
   const cssClassNameRegex = /\.([a-z-0-9\\\[\]\/\(\)\.':])*{/gi;
 
   let cssClassNames = code
@@ -29,6 +33,6 @@ export default function css(code: string, classMap: Map<string, string>) {
 
   return {
     code,
-    map: { mappings: cssClassNames },
+    map: null,
   };
 }
