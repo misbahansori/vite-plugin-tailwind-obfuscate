@@ -4,7 +4,7 @@ import type { TransformResult } from "rollup";
 
 export default function css(
   code: string,
-  classMap: Map<string, string>
+  classMapping: Map<string, string>
 ): TransformResult {
   const cssClassNameRegex = /\.([a-z-0-9\\\[\]\/\(\)\.':])*{/gi;
 
@@ -20,13 +20,15 @@ export default function css(
       );
       const nomalClassName = className.replace(/\\/gi, "");
 
-      if (classMap.has(removeCssPsuedoSelector(nomalClassName))) {
+      if (classMapping.has(removeCssPsuedoSelector(nomalClassName))) {
         code = code.replace(
           new RegExp(
             `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`,
             "g"
           ),
-          "." + classMap.get(removeCssPsuedoSelector(nomalClassName)) + "$1{"
+          "." +
+            classMapping.get(removeCssPsuedoSelector(nomalClassName)) +
+            "$1{"
         );
       }
     });

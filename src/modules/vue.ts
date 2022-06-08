@@ -2,7 +2,7 @@ import { escapeClassName, randomClassName } from "../utils";
 
 export default function vue(
   code: string,
-  classMap: Map<string, string>,
+  classMapping: Map<string, string>,
   config: GeneratorConfig
 ) {
   const classRegexs = [/class="([a-z-0-9\\\[\]\/\(\)\.': ]*)"/g];
@@ -22,10 +22,10 @@ export default function vue(
 
   unqiueClasses.forEach((className) => {
     let random = randomClassName(config);
-    while (classMap.has(random)) {
+    while (classMapping.has(random)) {
       random = randomClassName(config);
     }
-    classMap.set(className, random);
+    classMapping.set(className, random);
   });
 
   rawClasses
@@ -34,8 +34,8 @@ export default function vue(
       const newRawClass = rawClass
         .split(" ")
         .map((c) => {
-          if (classMap.has(c)) {
-            return classMap.get(c);
+          if (classMapping.has(c)) {
+            return classMapping.get(c);
           }
           return c;
         })

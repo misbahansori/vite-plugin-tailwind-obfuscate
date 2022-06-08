@@ -3,7 +3,7 @@ import css from "./modules/css";
 import vue from "./modules/vue";
 
 export default function obfuscate(config: PluginConfig): Plugin[] {
-  const classMap = new Map();
+  const classMapping = new Map();
   return [
     {
       name: "obfuscate-tailwind-html",
@@ -11,7 +11,7 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
       enforce: "pre",
       transform(code, id) {
         if (id.endsWith(".vue")) {
-          return vue(code, classMap, {
+          return vue(code, classMapping, {
             min: config.min,
             max: config.max,
             length: config.length,
@@ -24,7 +24,7 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
       apply: config.dev ? "serve" : "build",
       transform(code, id) {
         if (id.endsWith(".css")) {
-          return css(code, classMap);
+          return css(code, classMapping);
         }
       },
     },
