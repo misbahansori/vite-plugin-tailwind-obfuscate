@@ -13,20 +13,21 @@ export default function vue(
     /:class="[\s\S]*\?(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'(?: *)?[\s\S]*:(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'/g,
   ];
 
-  let rawClasses: string[] = [];
+  const rawClasses: string[] = [];
 
   classRegexs.forEach((regex) => {
     let match: RegExpExecArray;
     while ((match = regex.exec(code)) !== null) {
-      rawClasses.push(match[1]);
-      rawClasses.push(match[2]);
+      if (match[1]) {
+        rawClasses.push(match[1]);
+      }
+      if (match[2]) {
+        rawClasses.push(match[2]);
+      }
     }
   });
 
-  rawClasses = rawClasses.filter(Boolean);
-  const classes = rawClasses.map((c) => c.split(" "));
-
-  const unqiueClasses = new Set(classes.flat());
+  const unqiueClasses = new Set(rawClasses.map((c) => c.split(" ")).flat());
 
   unqiueClasses.forEach((className) => {
     let random = randomClassName(config);
