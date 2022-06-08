@@ -17,9 +17,6 @@ export default function css(code: string, classMap: Map<string, string>) {
       const nomalClassName = className.replace(/\\/gi, "");
 
       if (classMap.has(removeCssPsuedoSelector(nomalClassName))) {
-        console.log(
-          `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`
-        );
         code = code.replace(
           new RegExp(
             `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`,
