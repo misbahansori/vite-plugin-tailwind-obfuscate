@@ -2,7 +2,7 @@ import type { Plugin } from "vite";
 import css from "./modules/css";
 import vue from "./modules/vue";
 
-export default function obfuscate(config: Config): Plugin[] {
+export default function obfuscate(config: PluginConfig): Plugin[] {
   const classMap = new Map();
   return [
     {
@@ -11,7 +11,11 @@ export default function obfuscate(config: Config): Plugin[] {
       enforce: "pre",
       transform(code, id) {
         if (id.endsWith(".vue")) {
-          return vue(code, classMap);
+          return vue(code, classMap, {
+            min: config.min,
+            max: config.max,
+            length: config.length,
+          });
         }
       },
     },

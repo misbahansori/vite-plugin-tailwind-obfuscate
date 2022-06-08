@@ -1,38 +1,29 @@
-import randomString from "randomstring";
-import type { TransformResult } from "rollup";
-import { escapeClassName } from "../utils";
+import { escapeClassName, randomClassName } from "../utils";
 
-export default function vue(code: string, classMap: Map<string, string>) {
-  const classNamesRegex =
-    /(class|_normalizeClass)[\[\(: =]*[\\"]*([a-z-0-9\\\[\]\/\(\)\.': ])*["\\]/g;
+export default function vue(
+  code: string,
+  classMap: Map<string, string>,
+  config: GeneratorConfig
+) {
+  const classRegexs = [/class="([a-z-0-9\\\[\]\/\(\)\.': ]*)"/g];
   const rawClassesMap = new Map();
+  const rawClasses: string[] = [];
 
-  const rawClasses = code
-    .match(classNamesRegex)
-    .map((c) =>
-      c.replace(
-        new RegExp(/(\\|\"|class|_normalizeClass)[\[\(: =\ ]*/, "g"),
-        ""
-      )
-    )
-    .filter((c) => c.length > 1);
+  classRegexs.forEach((regex) => {
+    let match: RegExpExecArray;
+    while ((match = regex.exec(code)) !== null) {
+      rawClasses.push(match[1]);
+    }
+  });
 
   const classes = rawClasses.map((c) => c.split(" "));
 
   const unqiueClasses = new Set(classes.flat());
 
   unqiueClasses.forEach((className) => {
-    let random = randomString.generate({
-      length: 5,
-      charset: "alphabetic",
-      capitalization: "lowercase",
-    });
+    let random = randomClassName(config);
     while (classMap.has(random)) {
-      random = randomString.generate({
-        length: 5,
-        charset: "alphabetic",
-        capitalization: "lowercase",
-      });
+      random = randomClassName(config);
     }
     classMap.set(className, random);
   });
