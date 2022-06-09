@@ -2,13 +2,21 @@ import { cssPseudoSelectorRegex } from "./../utils";
 import { escapeClassName, removeCssPsuedoSelector } from "../utils";
 
 export default function css(code: string, classMapping: Map<string, string>) {
-  const cssClassNameRegex = /\.([a-z-0-9\\\[\]\/\(\)\.':])*{/gi;
+  const cssClassNameRegex = /\.([a-z-0-9\\\[\]\/\(\)\.': ])*{/gi;
 
   let cssClassNames = code.match(cssClassNameRegex);
 
   if (!cssClassNames) return;
 
-  cssClassNames = cssClassNames.map((className) => className.slice(1, -1));
+  cssClassNames = cssClassNames.map((className) => {
+    // Remove the `.` from the beginning of the class name and the `{` from the end
+    className = className.slice(1, -1);
+    // Remove the space from the end of the class name
+    if (className.endsWith(" ")) {
+      className = className.slice(0, -1);
+    }
+    return className;
+  });
 
   cssClassNames
     .sort((a, b) => b.length - a.length)
