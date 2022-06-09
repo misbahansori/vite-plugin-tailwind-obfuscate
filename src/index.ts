@@ -24,6 +24,19 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
           return css(code, classMapping);
         }
       },
+      generateBundle() {
+        const classMappingObject = {};
+
+        classMapping.forEach((value, key) => {
+          classMappingObject[key] = value;
+        });
+
+        this.emitFile({
+          type: "asset",
+          name: "class-mapping.json",
+          source: JSON.stringify(classMappingObject),
+        });
+      },
     },
   ];
 }
