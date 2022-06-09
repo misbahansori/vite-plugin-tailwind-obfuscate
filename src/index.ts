@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 import css from "./modules/css";
-import vue from "./modules/vue";
+import transformVueFile from "./modules/vue";
 
 export default function obfuscate(config: PluginConfig): Plugin[] {
   const classMapping = new Map();
@@ -11,11 +11,7 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
       enforce: "pre",
       transform(code, id) {
         if (id.endsWith(".vue")) {
-          return vue(code, classMapping, {
-            min: config.min,
-            max: config.max,
-            length: config.length,
-          });
+          return transformVueFile(code, classMapping, config);
         }
       },
     },

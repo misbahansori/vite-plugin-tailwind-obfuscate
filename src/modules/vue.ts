@@ -1,6 +1,6 @@
 import { escapeClassName, randomClassName } from "../utils";
 
-export default function vue(
+export default function transformVueFile(
   code: string,
   classMapping: Map<string, string>,
   config: GeneratorConfig
@@ -13,6 +13,40 @@ export default function vue(
     /:class="[^"]*\?(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'(?: *)?[^"]*:(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'[^"]*/g,
   ];
 
+  const rawClasses = getRawClasses(classRegexs, code);
+
+  const unqiueClasses = new Set(
+    rawClasses
+      .map((c) => c.split(" "))
+      .flat()
+      .sort((a, b) => b.length - a.length)
+  );
+
+  unqiueClasses.forEach((className) => {
+    let random = randomClassName(config);
+    const classMappingList = Array.from(classMapping.values());
+
+    while (classMappingList.includes(random)) {
+      random = randomClassName(config);
+    }
+
+    if (!classMapping.has(className)) {
+      classMapping.set(className, random);
+    }
+  });
+
+  unqiueClasses.forEach((className) => {
+    const regex = new RegExp(escapeClassName(className), "g");
+    code = code.replace(regex, classMapping.get(className));
+  });
+
+  return {
+    code,
+    map: null,
+  };
+}
+
+function getRawClasses(classRegexs: RegExp[], code: string) {
   const rawClasses: string[] = [];
 
   classRegexs.forEach((regex) => {
@@ -27,46 +61,5 @@ export default function vue(
     }
   });
 
-  rawClasses.forEach((rawClass) => console.log(rawClass));
-
-  const unqiueClasses = new Set(rawClasses.map((c) => c.split(" ")).flat());
-
-  unqiueClasses.forEach((className) => {
-    let random = randomClassName(config);
-
-    while ([...classMapping.values()].includes(random)) {
-      random = randomClassName(config);
-    }
-
-    if (!classMapping.has(className)) {
-      classMapping.set(className, random);
-    }
-  });
-
-  const rawClassesMap = new Map();
-
-  rawClasses
-    .sort((a, b) => b.length - a.length)
-    .forEach((rawClass) => {
-      const newRawClass = rawClass
-        .split(" ")
-        .map((c) => {
-          if (classMapping.has(c)) {
-            return classMapping.get(c);
-          }
-          return c;
-        })
-        .join(" ");
-      rawClassesMap.set(rawClass, newRawClass);
-    });
-
-  rawClassesMap.forEach((newRawClass, rawClass) => {
-    const regex = new RegExp(escapeClassName(rawClass), "g");
-    code = code.replace(regex, newRawClass);
-  });
-
-  return {
-    code,
-    map: null,
-  };
+  return rawClasses;
 }
