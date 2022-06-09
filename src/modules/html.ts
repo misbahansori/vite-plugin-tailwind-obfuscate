@@ -1,6 +1,6 @@
 import { escapeClassName, randomClassName } from "../utils";
 
-export default function transformVueFile(
+export default function transformHtmlFile(
   code: string,
   classMapping: Map<string, string>,
   config: GeneratorConfig
@@ -8,6 +8,9 @@ export default function transformVueFile(
   const classRegexs = [
     // Catch regular class names
     /class="([a-z-0-9\\\[\]\/\(\)\.': ]*)"/g,
+
+    // React class names
+    /className: "([a-z-0-9\\\[\]\/\(\)\.': ]*)"/g,
 
     // Catch class names using tenary operator
     /:class="[^"]*\?(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'(?: *)?[^"]*:(?: *)?'([a-z-0-9\\\[\]\/\(\)\.: ]*)'[^"]*/g,

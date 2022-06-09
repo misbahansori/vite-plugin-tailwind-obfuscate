@@ -1,6 +1,7 @@
 import type { Plugin } from "vite";
 import css from "./modules/css";
-import transformVueFile from "./modules/vue";
+import transformHtmlFile from "./modules/html";
+import { endsWithAny } from "./utils";
 
 export default function obfuscate(config: PluginConfig): Plugin[] {
   const classMapping = new Map();
@@ -10,8 +11,8 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
       apply: config.dev ? "serve" : "build",
       enforce: "pre",
       transform(code, id) {
-        if (id.endsWith(".vue")) {
-          return transformVueFile(code, classMapping, config);
+        if (endsWithAny(["vue", "jsx", "tsx"], id)) {
+          return transformHtmlFile(code, classMapping, config);
         }
       },
     },
