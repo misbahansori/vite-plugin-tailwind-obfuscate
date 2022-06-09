@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "dev": "tsc --watch",
-    "vue-dev": "cd example/vue && vite",
+    "vue:dev": "cd example/vue && vite",
+    "react:dev": "cd example/react && vite",
     "test": "vitest"
   },
   "repository": {

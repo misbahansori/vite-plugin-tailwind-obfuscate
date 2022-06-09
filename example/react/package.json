@@ -1,0 +1,23 @@
+{
+  "name": "tailwind-money-transfer",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@honkhonk/vite-plugin-svgr": "^1.1.0",
+    "@vitejs/plugin-react": "^1.0.7",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.18",
+    "vite": "^2.7.2",
+    "vite-plugin-inspect": "^0.5.0",
+    "vite-plugin-tailwind-obfuscate": "workspace:*"
+  }
+}
