@@ -2,6 +2,15 @@ import { describe, expect, it } from "vitest";
 import css from "../../src/modules/css";
 
 describe("test css transformer", () => {
+  it("should not transform anything", () => {
+    const code = `none`;
+
+    const classMapping = new Map();
+    const result = css(code, classMapping);
+
+    expect(result).toBeUndefined();
+  });
+
   it("should transform .text-gray-400 to .asdfg", () => {
     const code = `.text-gray-400{`;
 
