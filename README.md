@@ -12,7 +12,7 @@ A vite plugin to obfuscate tailwind css when building.
 ## Supported frameworks
 
 - Vue
-- React *(coming soon)*
+- React
 - Svelte *(coming soon)*
 
 
