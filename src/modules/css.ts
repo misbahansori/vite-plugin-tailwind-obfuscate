@@ -23,8 +23,6 @@ export default function css(
         className.replace(/\\/gi, "")
       );
 
-      console.log(nomalClassName);
-
       if (classMapping.has(nomalClassName)) {
         const regex = new RegExp(
           `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`,
