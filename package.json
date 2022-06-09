@@ -8,7 +8,8 @@
     "dist"
   ],
   "scripts": {
-    "dev": "tsc --watch",
+    "build": "tsup src/index.ts --format cjs,esm",
+    "dev": "tsup src/index.ts --format cjs,esm --watch",
     "vue:dev": "cd example/vue && vite",
     "react:dev": "cd example/react && vite",
     "svelte:dev": "cd example/svelte && vite",
@@ -31,7 +32,7 @@
   "devDependencies": {
     "@types/randomstring": "^1.1.8",
     "rollup": "^2.75.6",
-    "typescript": "^4.7.3",
+    "tsup": "^6.1.0",
     "vite": "^2.9.10",
     "vitest": "^0.14.1"
   }
