@@ -15,20 +15,24 @@ export default function css(
   cssClassNames
     .sort((a, b) => b.length - a.length)
     .forEach((className) => {
-      const escapedClassName = removeCssPsuedoSelector(
-        escapeClassName(className)
+      const escapedClassName = escapeClassName(
+        removeCssPsuedoSelector(className)
       );
-      const nomalClassName = className.replace(/\\/gi, "");
 
-      if (classMapping.has(removeCssPsuedoSelector(nomalClassName))) {
+      const nomalClassName = removeCssPsuedoSelector(
+        className.replace(/\\/gi, "")
+      );
+
+      console.log(nomalClassName);
+
+      if (classMapping.has(nomalClassName)) {
+        const regex = new RegExp(
+          `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`,
+          "g"
+        );
         code = code.replace(
-          new RegExp(
-            `\.${escapedClassName}(:?(${cssPseudoSelectorRegex})?[\(\\w\d\) ]*){`,
-            "g"
-          ),
-          "." +
-            classMapping.get(removeCssPsuedoSelector(nomalClassName)) +
-            "$1{"
+          regex,
+          "." + classMapping.get(nomalClassName) + "$1{"
         );
       }
     });
