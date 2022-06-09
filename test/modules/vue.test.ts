@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import transformHtmlFile from "../../src/modules/html";
+import transformHtmlFiles from "../../src/modules/html";
 
 describe("test vue transformer", () => {
   it("should transform regular class", () => {
     const code = `<div class="foo bar baz">`;
 
     const classMapping = new Map();
-    const result = transformHtmlFile(code, classMapping, {});
+    const result = transformHtmlFiles(code, classMapping, {});
 
     expect(result.code).toMatch(/<div class=\"\w{5} \w{5} \w{5}\">/);
   });
@@ -23,7 +23,7 @@ describe("test vue transformer", () => {
     const classMapping = new Map();
     classMapping.set("bg-green-400", "asdf");
     classMapping.set("bg-indigo-400", "qwer");
-    const result = transformHtmlFile(code, classMapping, {});
+    const result = transformHtmlFiles(code, classMapping, {});
 
     expect(result.code).toEqual(`
       :class="
@@ -52,7 +52,7 @@ describe("test vue transformer", () => {
       ["text-indigo-400", "mnbv"],
     ]);
 
-    const result = transformHtmlFile(code, classMapping, {});
+    const result = transformHtmlFiles(code, classMapping, {});
 
     expect(result.code).toEqual(`
       :class="

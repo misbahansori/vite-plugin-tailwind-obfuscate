@@ -1,18 +1,19 @@
 import type { Plugin } from "vite";
-import css from "./modules/css";
-import transformHtmlFile from "./modules/html";
+import transformCSSFiles from "./modules/css";
+import transformHtmlFiles from "./modules/html";
 import { endsWithAny } from "./utils";
 
-export default function obfuscate(config: PluginConfig): Plugin[] {
+export default function obfuscate(config: PluginConfig = {}): Plugin[] {
   const classMapping = new Map();
-  return [
+
+  const plugins: Plugin[] = [
     {
       name: "obfuscate-tailwind-html",
       apply: config.dev ? "serve" : "build",
       enforce: "pre",
       transform(code, id) {
         if (endsWithAny(["vue", "jsx", "tsx"], id)) {
-          return transformHtmlFile(code, classMapping, config);
+          return transformHtmlFiles(code, classMapping, config);
         }
       },
     },
@@ -21,7 +22,7 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
       apply: config.dev ? "serve" : "build",
       transform(code, id) {
         if (id.endsWith(".css")) {
-          return css(code, classMapping);
+          return transformCSSFiles(code, classMapping);
         }
       },
       generateBundle() {
@@ -39,4 +40,12 @@ export default function obfuscate(config: PluginConfig): Plugin[] {
       },
     },
   ];
+
+  if (config.dev) {
+    plugins.forEach((plugin) => {
+      delete plugin.apply;
+    });
+  }
+
+  return plugins;
 }

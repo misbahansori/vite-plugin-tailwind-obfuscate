@@ -1,5 +1,5 @@
 interface PluginConfig extends GeneratorConfig {
-  dev: boolean;
+  dev?: boolean;
 }
 
 interface GeneratorConfig {

@@ -1,6 +1,6 @@
 import { escapeClassName, randomClassName } from "../utils";
 
-export default function transformHtmlFile(
+export default function transformHtmlFiles(
   code: string,
   classMapping: Map<string, string>,
   config: GeneratorConfig

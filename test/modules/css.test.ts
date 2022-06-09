@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
-import css from "../../src/modules/css";
+import transformCSSFiles from "../../src/modules/css";
 
 describe("test css transformer", () => {
   it("should not transform anything", () => {
     const code = `none`;
 
     const classMapping = new Map();
-    const result = css(code, classMapping);
+    const result = transformCSSFiles(code, classMapping);
 
-    expect(result).toBeUndefined();
+    expect(result.code).toBe("none");
   });
 
   it("should transform .text-gray-400 to .asdfg", () => {
@@ -16,7 +16,7 @@ describe("test css transformer", () => {
 
     const classMapping = new Map();
     classMapping.set("text-gray-400", "asdfg");
-    const result = css(code, classMapping);
+    const result = transformCSSFiles(code, classMapping);
 
     expect(result.code).toMatch(/.asdfg{/);
   });
@@ -26,7 +26,7 @@ describe("test css transformer", () => {
 
     const classMapping = new Map();
     classMapping.set("hover:text-gray-400", "asdfg");
-    const result = css(code, classMapping);
+    const result = transformCSSFiles(code, classMapping);
 
     expect(result.code).toMatch(/.asdfg:hover{/);
   });
