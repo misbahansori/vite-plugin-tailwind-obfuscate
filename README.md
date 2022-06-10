@@ -36,6 +36,21 @@ export default defineConfig({
 });
 ```
 
+## Configuration
+
+```
+export default defineConfig({
+  plugins: [
+    obfuscate({
+      dev: true,  // by default it only run on production. set to true to run on development and production.
+      min: 2,     // minimum number of characters in the obfuscated string.
+      max: 8,     // maximum number of characters in the obfuscated string.
+      length: 8,  // if length is provided, it will be used instead of min and max.
+    })
+  ],
+});
+```
+
     
 ## Running Tests
 
