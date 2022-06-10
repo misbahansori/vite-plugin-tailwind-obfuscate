@@ -25,10 +25,10 @@ A Vite plugin to obfuscate Tailwind CSS class when running on production.
 Install plugin with npm
 
 ```bash
-  npm install my-project
+npm i vite-plugin-tailwind-obfuscate
 ```
 
-```
+``` js
 // https://vitejs.dev/config/
 
 import obfuscate from "vite-plugin-tailwind-obfuscate";
@@ -42,11 +42,11 @@ export default defineConfig({
 
 ## Configuration
 
-```
+``` js
 export default defineConfig({
   plugins: [
     obfuscate({
-      dev: true,  // by default it only run on production. set to true to run on development and production.
+      dev: true,  // by default it only run on production. set to true to run on dev and production.
       min: 2,     // minimum number of characters in the obfuscated string.
       max: 8,     // maximum number of characters in the obfuscated string.
       length: 8,  // if length is provided, it will be used instead of min and max.
@@ -61,7 +61,7 @@ export default defineConfig({
 To run tests, run the following command
 
 ```bash
-  npm run test
+npm run test
 ```
 
 
