@@ -1,7 +1,11 @@
 
 # vite-plugin-tailwind-obfusacte
 
-A vite plugin to obfuscate tailwind css when building.
+A Vite plugin to obfuscate Tailwind CSS class when running on production.
+
+<img width="962" alt="Screen Shot 2022-06-10 at 07 15 21" src="https://user-images.githubusercontent.com/20674057/172965716-fa2e62a3-1823-4abe-8a33-11b83cf0f56a.png">
+<img width="958" alt="Screen Shot 2022-06-10 at 07 14 37" src="https://user-images.githubusercontent.com/20674057/172965725-f1f16f35-2611-4b6a-9d9d-851e006180ad.png">
+
 
 
 ## Authors
