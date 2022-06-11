@@ -7,20 +7,12 @@ A Vite plugin to obfuscate Tailwind CSS class when running on production.
 <img width="958" alt="Screen Shot 2022-06-10 at 07 14 37" src="https://user-images.githubusercontent.com/20674057/172965725-f1f16f35-2611-4b6a-9d9d-851e006180ad.png">
 
 
-
-## Authors
-
-- [@misbahansori](https://www.github.com/misbahansori)
-
-
-## Supported frameworks
-
-- Vue
-- React
-- Svelte *(coming soon)*
-
-
 ## Installation
+
+
+> **Warning**
+> This plugin is still in development. Proceed with caution. 
+
 
 Install plugin with npm
 
@@ -55,6 +47,11 @@ export default defineConfig({
 });
 ```
 
+## Supported frameworks
+
+- Vue
+- React
+- Svelte *(coming soon)*
     
 ## Running Tests
 
@@ -63,6 +60,11 @@ To run tests, run the following command
 ```bash
 npm run test
 ```
+
+
+## Authors
+
+- [@misbahansori](https://www.github.com/misbahansori)
 
 
 ## Feedback
