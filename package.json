@@ -13,7 +13,7 @@
     "vue:dev": "cd example/vue && vite",
     "react:dev": "cd example/react && vite",
     "svelte:dev": "cd example/svelte && vite",
-    "release": "npm run build && bumpp --commit --tag --push",
+    "release": "npm run build && bumpp --commit --tag --push && npm publish",
     "test": "vitest"
   },
   "repository": {
