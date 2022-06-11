@@ -22,6 +22,7 @@ export default function transformHtmlFiles(
     rawClasses
       .map((c) => c.split(" "))
       .flat()
+      .filter((c) => c.length > 0)
       .sort((a, b) => b.length - a.length)
   );
 
@@ -38,10 +39,27 @@ export default function transformHtmlFiles(
     }
   });
 
-  unqiueClasses.forEach((className) => {
-    const regex = new RegExp(escapeClassName(className), "g");
-    code = code.replace(regex, classMapping.get(className));
+  const rawClassesMap = new Map();
+
+  rawClasses.forEach((classNames) => {
+    const randomClassNames = classNames
+      .split(" ")
+      .map((className) => {
+        if (classMapping.has(className)) {
+          return classMapping.get(className);
+        }
+      })
+      .join(" ");
+
+    rawClassesMap.set(classNames, randomClassNames);
   });
+
+  rawClasses
+    .sort((a, b) => b.length - a.length)
+    .forEach((classNames) => {
+      const regex = new RegExp(escapeClassName(classNames), "g");
+      code = code.replace(regex, rawClassesMap.get(classNames));
+    });
 
   return {
     code,
