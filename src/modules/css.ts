@@ -5,7 +5,7 @@ export default function transformCSSFiles(
   code: string,
   classMapping: Map<string, string>
 ) {
-  const cssClassNameRegex = /\.([a-z-0-9\\\[\]\/\(\)\.': ])*{/gi;
+  const cssClassNameRegex = /\.([a-z-0-9\?\\\[\]\/\(\)\.': ])*{/gi;
 
   let cssClassNames = code.match(cssClassNameRegex);
 
@@ -33,6 +33,8 @@ export default function transformCSSFiles(
       const nomalClassName = removeCssPsuedoSelector(
         className.replace(/\\/gi, "")
       );
+
+      console.log(className);
 
       if (classMapping.has(nomalClassName)) {
         const regex = new RegExp(
