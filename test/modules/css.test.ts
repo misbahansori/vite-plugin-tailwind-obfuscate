@@ -30,4 +30,14 @@ describe("test css transformer", () => {
 
     expect(result.code).toMatch(/.asdfg:hover{/);
   });
+
+  it("should transform .hover:text-gray-400:hover to .asdfg:hover", () => {
+    const code = `.cursor-pointer{`;
+
+    const classMapping = new Map();
+    classMapping.set("cursor-pointer", "asdfg");
+    const result = transformCSSFiles(code, classMapping);
+
+    expect(result.code).toMatch(/.asdfg{/);
+  });
 });
